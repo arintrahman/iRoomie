@@ -16,6 +16,8 @@ class RegisterView(generics.CreateAPIView):
 
 # Login
 class LoginView(ObtainAuthToken):
+    def get(self, request, *args, **kwargs):
+        return Response({"detail": "Please send a POST request with username and password."}, status=405)
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
         token = Token.objects.get(key=response.data['token'])

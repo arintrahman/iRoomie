@@ -10,6 +10,16 @@ class RegisterSerializer(serializers.ModelSerializer):
         model = User
         fields = ('username', 'email', 'password', 'password2')
 
+    def validate_email(self, value):
+        email_pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$' # checking format
+        if not re.match(email_pattern, value):
+            raise serializers.ValidationError("Invalid email format. Use name@domain.com")
+
+        if User.objects.filter(email__iexact=value).exists(): # checking uniqueness
+            raise serializers.ValidationError("This email is already registered.")
+
+        return value
+
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
             raise serializers.ValidationError({"password": "Passwords didn't match."})
