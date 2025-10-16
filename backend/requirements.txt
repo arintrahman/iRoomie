@@ -1,3 +1,1 @@
-pip install django djangorestframework psycopg2-binary channels
-
-pip install django-cors-headers
+django djangorestframework psycopg2-binary channels django-cors-headers
