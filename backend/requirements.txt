@@ -1,1 +1,29 @@
-django djangorestframework psycopg2-binary channels django-cors-headers
+# === Core Framework ===
+Django==5.1.1
+djangorestframework==3.15.2
+django-cors-headers==4.4.0
+
+# === Authentication & Tokens ===
+djangorestframework-simplejwt==5.3.1
+# (optional if you later switch from TokenAuth to JWT)
+
+# === WebSockets / Real-time Features ===
+channels==4.1.0
+
+# === Database Drivers ===
+psycopg2-binary==2.9.9   # PostgreSQL (for production)
+sqlite3-binary==3.45.3   # Optional, fallback for dev (skip if using built-in)
+
+# === Testing & Code Style ===
+pytest==8.3.2
+pytest-django==4.8.0
+black==24.10.0
+coverage==7.6.1
+
+# === Utilities ===
+python-dotenv==1.0.1
+requests==2.32.3
+
+# === Optional: static file management & deployment ===
+whitenoise==6.7.0
+gunicorn==23.0
