@@ -26,3 +26,16 @@ class LoginView(ObtainAuthToken):
             'user_id': token.user_id,
             'username': token.user.username
         })
+
+# Profile
+from rest_framework import generics, permissions
+from .models import Profile
+from .serializers import ProfileSerializer
+
+class ProfileView(generics.RetrieveUpdateAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user.profile
