@@ -1,8 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
+<<<<<<< HEAD
 import uuid 
 
 # Create your models he.
+=======
+
+# Create your models here.
+>>>>>>> a0719fb (backend chat)
 class Chat(models.Model):
     participants = models.ManyToManyField(User, related_name='chats')
     created_at = models.DateTimeField(auto_now_add=True)
