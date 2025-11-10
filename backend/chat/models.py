@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
+# Create your models he.
 class Chat(models.Model):
     participants = models.ManyToManyField(User, related_name='chats')
     created_at = models.DateTimeField(auto_now_add=True)
