@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import uuid 
 
 # Create your models he.
 class Chat(models.Model):
@@ -17,3 +18,11 @@ class Message(models.Model):
 
     def __str__(self):
         return f"{self.sender.username}: {self.content[:20]}"
+    
+class Room(models.MOdel):
+    id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable=False)
+    participants = models.ManyToManyField(User, related_name = "chat_rooms")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Room {self.id}"
