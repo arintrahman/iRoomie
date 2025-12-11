@@ -37,3 +37,7 @@ frontend/.vercel/
 # typescript artifacts
 frontend/*.tsbuildinfo
 frontend/next-env.d.ts
+
+backend/db.sqlite3
+backend/__pycache__/
+backend/*.pyc
