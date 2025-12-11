@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+export const dynamic = "force-dynamic";
+
 
 export default function LoginPage() {
   const [form, setForm] = useState({ username: "", password: "" });

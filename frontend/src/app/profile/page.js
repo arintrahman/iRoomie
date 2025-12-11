@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+export const dynamic = "force-dynamic";
+
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState(null);
