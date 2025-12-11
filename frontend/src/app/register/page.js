@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+export const dynamic = "force-dynamic";
+
 
 export default function RegisterPage() {
   const [form, setForm] = useState({
