@@ -19,7 +19,7 @@ class Swipe(models.Model):
             models.Index(fields=["viewer", "target"]),
         ]
         constraints = [
-            models.CheckConstraint(check=~models.Q(viewer=models.F("target")), name="no_self_swipe"),
+            models.CheckConstraint(condition=~models.Q(viewer=models.F("target")), name="no_self_swipe"),
         ]
 
     def __str__(self):

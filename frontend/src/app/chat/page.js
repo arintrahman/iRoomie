@@ -3,6 +3,8 @@ export const dynamic = "force-dynamic";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import NavigationButton from "../components/NavigationButton";
+
 
 export default function ChatListPage() {
   const [chats, setChats] = useState([]);
@@ -21,23 +23,35 @@ export default function ChatListPage() {
   }, []);
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>Your Chats</h1>
-      {chats.map((chat) => (
-        <div
-          key={chat.id}
-          style={{
-            padding: "1rem",
-            border: "1px solid #ccc",
-            margin: "1rem 0",
-            borderRadius: "8px",
-            cursor: "pointer",
-          }}
-          onClick={() => router.push(`/chat/${chat.id}`)}
-        >
-          <p><strong>Participants:</strong> {chat.participants.map((p) => p.username).join(", ")}</p>
-        </div>
-      ))}
+    <div className="min-h-screen bg-gradient-to-br from-blue-500 via-blue-600 to-orange-400 p-8 flex justify-center">
+
+      <div className="w-full">
+         <div className=" flex justify-end gap-4 mb-8 max-w-max ml-auto">
+          <NavigationButton text="Find Matches" link="/matching" colorClass="bg-blue-600 hover:bg-blue-700" />
+          <NavigationButton text="Potential Roomies" link="/profile/matches" colorClass="bg-orange-500 hover:bg-orange-600" />
+          <NavigationButton text="Your Profile" link="/profile" colorClass="bg-green-600 hover:bg-green-700" />
+      </div>
+        <h1 className="text-4xl font-extrabold text-white mb-8 text-center">Your Chats</h1>
+        
+        {chats.length === 0 ? (
+          <p className="text-center text-white text-lg">No chats found.</p>
+        ) : (
+          <div className="space-y-4">
+            {chats.map((chat) => (
+              <div
+                key={chat.id}
+                onClick={() => router.push(`/chat/${chat.id}`)}
+                className="cursor-pointer p-5 rounded-2xl bg-white/90 backdrop-blur-lg shadow-md hover:shadow-xl transition-shadow border border-blue-300"
+                title="Click to open chat"
+              >
+                <p className="text-blue-700 font-semibold">
+                  <strong>Participants:</strong> {chat.participants.map((p) => p.username).join(", ")}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

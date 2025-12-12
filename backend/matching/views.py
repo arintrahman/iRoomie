@@ -1,15 +1,19 @@
 from django.db.models import Q
 from rest_framework import generics, permissions, status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from django.contrib.auth.models import User
 from users.models import Profile
 from .models import Swipe
-from .serializers import PublicProfileSerializer, StartChatSerializer
+from .serializers import PublicProfileSerializer, StartChatSerializer, UserSerializer
+
 
 class CandidatePagination(generics.ListAPIView):
     page_size = 10
+
 
 class CandidateListView(generics.ListAPIView):
     serializer_class = PublicProfileSerializer
@@ -49,6 +53,7 @@ class CandidateListView(generics.ListAPIView):
 
         return qs.order_by("user__username")[:50]  # simple cap for now
 
+
 class SwipeView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
@@ -71,6 +76,7 @@ class SwipeView(APIView):
         Swipe.objects.create(viewer=viewer, target=target, action=action)
         return Response({"detail": f"{action} recorded."}, status=status.HTTP_201_CREATED)
 
+
 class StartChatView(generics.GenericAPIView):
     serializer_class = StartChatSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -87,3 +93,27 @@ class StartChatView(generics.GenericAPIView):
             },
             status=status.HTTP_201_CREATED
         )
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def matched_users(request):
+    user = request.user
+
+    # Users this user liked
+    liked_user_ids = Swipe.objects.filter(
+        viewer=user, action=Swipe.ACTION_LIKE
+    ).values_list('target_id', flat=True)
+
+    # Users who liked this user back (mutual likes)
+    mutual_like_user_ids = Swipe.objects.filter(
+        viewer_id__in=liked_user_ids,
+        target=user,
+        action=Swipe.ACTION_LIKE
+    ).values_list('viewer_id', flat=True)
+
+    # Final matched users queryset
+    matches = User.objects.filter(id__in=mutual_like_user_ids)
+
+    serializer = UserSerializer(matches, many=True)
+    return Response(serializer.data)

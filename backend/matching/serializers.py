@@ -3,6 +3,12 @@ from django.contrib.auth.models import User
 from users.models import Profile 
 from chat.models import Room
 
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username']
+
 class PublicProfileSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source="user.username")
 
@@ -23,6 +29,7 @@ class StartChatSerializer(serializers.Serializer):
     def create(self, validated_data):
         viewer = self.context["request"].user
         target = User.objects.get(username=validated_data["target_username"])
+        
         if viewer == target:
             raise serializers.ValidationError("Cannot start chat with yourself.")
         
@@ -35,4 +42,17 @@ class StartChatSerializer(serializers.Serializer):
             room = Room.objects.create()
             room.participants.add(viewer, target)
 
-        return {"room_id": str(room.id)}
+        other_user = room.participants.exclude(id=viewer.id).first()
+
+        other_name = f"{other_user.first_name} {other_user.last_name}".strip()
+        if not other_name:
+            other_name = other_user.username
+
+        return { 
+            "room_id": room.id,
+            "other_name": str(other_name),}
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['age', 'gender', 'budget', 'preferred_location', 'bio']

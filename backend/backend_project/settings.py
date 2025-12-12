@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'channels',
     'corsheaders',
+    #'daphne',
 
     # Custom
     'users',
@@ -89,7 +90,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "backend_project.wsgi.application"
+ASGI_APPLICATION = "backend_project.asgi.application"
 
 
 # Database

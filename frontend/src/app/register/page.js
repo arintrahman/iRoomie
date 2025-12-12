@@ -2,7 +2,6 @@
 import { useState } from "react";
 export const dynamic = "force-dynamic";
 
-
 export default function RegisterPage() {
   const [form, setForm] = useState({
     username: "",
@@ -37,36 +36,61 @@ export default function RegisterPage() {
   };
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>Register</h1>
-      <form onSubmit={handleSubmit}>
-        <input name="username" placeholder="Username" onChange={handleChange} />
-        <br />
-        <input
-          name="email"
-          placeholder="Email"
-          onChange={handleChange}
-          type="email"
-        />
-        <br />
-        <input
-          name="password"
-          placeholder="Password"
-          onChange={handleChange}
-          type="password"
-        />
-        <br />
-        <input
-          name="password2"
-          placeholder="Confirm Password"
-          onChange={handleChange}
-          type="password"
-        />
-        <br />
-        <button type="submit">Register</button>
-      </form>
-      <p>{message}</p>
-      <a href="/login">Already have an account? Log in</a>
+    <div className="min-h-screen bg-gradient-to-br from-blue-500 via-blue-600 to-orange-400 flex items-center justify-center p-6">
+      <div className="bg-white/90 backdrop-blur-lg shadow-xl rounded-2xl w-full max-w-md p-8">
+        <h1 className="text-3xl font-bold text-center text-blue-700 mb-6">
+          Create Your Account
+        </h1>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            name="username"
+            placeholder="Username"
+            onChange={handleChange}
+            className="w-full px-4 py-3 rounded-lg bg-blue-50 border border-blue-200 focus:ring-2 focus:ring-orange-400 focus:outline-none"
+          />
+
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            onChange={handleChange}
+            className="w-full px-4 py-3 rounded-lg bg-blue-50 border border-blue-200 focus:ring-2 focus:ring-orange-400 focus:outline-none"
+          />
+
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            onChange={handleChange}
+            className="w-full px-4 py-3 rounded-lg bg-blue-50 border border-blue-200 focus:ring-2 focus:ring-orange-400 focus:outline-none"
+          />
+
+          <input
+            name="password2"
+            type="password"
+            placeholder="Confirm Password"
+            onChange={handleChange}
+            className="w-full px-4 py-3 rounded-lg bg-blue-50 border border-blue-200 focus:ring-2 focus:ring-orange-400 focus:outline-none"
+          />
+
+          <button
+            type="submit"
+            className="w-full py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg shadow-md transition-all"
+          >
+            Register
+          </button>
+        </form>
+
+        <p className="mt-4 text-center text-sm text-gray-700">{message}</p>
+
+        <a
+          href="/login"
+          className="block text-center mt-4 text-blue-700 hover:text-orange-500 font-medium transition"
+        >
+          Already have an account? Log in
+        </a>
+      </div>
     </div>
   );
 }

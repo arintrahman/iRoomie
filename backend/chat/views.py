@@ -9,17 +9,25 @@ from rest_framework.permissions import AllowAny
 class ChatListView(generics.ListAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
-    #permission_classes = [permissions.IsAuthenticated]
     permission_classes = [permissions.AllowAny]
-#testing:
-    def get_queryset(self):
-            user = self.request.user
-            if user.is_authenticated:
-                # Logged-in user → show only their chats
-                return Chat.objects.filter(participants=user)
-            # Anonymous user → show nothing (prevents the error)
-            return Chat.objects.none()
 
+    def get_queryset(self):
+        user = self.request.user
+        print(f"=== CHAT DEBUG ===")
+        print(f"User: {user}")
+        print(f"Is authenticated: {user.is_authenticated}")
+        print(f"Auth header: {self.request.META.get('HTTP_AUTHORIZATION')}")
+        
+        if user.is_authenticated:
+            chats = Chat.objects.filter(participants=user)
+            print(f"Found {chats.count()} chats for user {user.username}")
+            return chats
+        
+        print("User not authenticated, returning empty queryset")
+        # TEMPORARY: Return all chats for debugging
+        all_chats = Chat.objects.all()
+        print(f"Returning ALL chats for debugging: {all_chats.count()} total chats")
+        return all_chats
     #def get_queryset(self):
         # Show only chats where the current user is a participant
         #return Chat.objects.filter(participants=self.request.user)

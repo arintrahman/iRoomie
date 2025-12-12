@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 export const dynamic = "force-dynamic";
 
-
 export default function ProfilePage() {
   const [profile, setProfile] = useState(null);
   const [message, setMessage] = useState("");
   const router = useRouter();
 
-  const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
   useEffect(() => {
     if (!token) {
@@ -58,56 +58,81 @@ export default function ProfilePage() {
     }
   };
 
-  if (!profile) return <p>Loading profile...</p>;
+  if (!profile)
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 via-blue-600 to-orange-400 text-white text-xl">
+        Loading profile...
+      </div>
+    );
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>Your Profile</h1>
-      <input
-        name="age"
-        placeholder="Age"
-        value={profile.age || ""}
-        onChange={handleChange}
-      />
-      <br />
-      <input
-        name="gender"
-        placeholder="Gender"
-        value={profile.gender || ""}
-        onChange={handleChange}
-      />
-      <br />
-      <input
-        name="budget"
-        placeholder="Budget"
-        value={profile.budget || ""}
-        onChange={handleChange}
-      />
-      <br />
-      <input
-        name="preferred_location"
-        placeholder="Preferred Location"
-        value={profile.preferred_location || ""}
-        onChange={handleChange}
-      />
-      <br />
-      <textarea
-        name="bio"
-        placeholder="Bio"
-        value={profile.bio || ""}
-        onChange={handleChange}
-      />
-      <br />
-      <button onClick={handleSave}>Save Changes</button>
-      <p>{message}</p>
-      <button
-        onClick={() => {
-          localStorage.removeItem("token");
-          router.push("/login");
-        }}
-      >
-        Logout
-      </button>
+    <div className="min-h-screen bg-gradient-to-br from-blue-500 via-blue-600 to-orange-400 flex items-center justify-center p-8">
+      <div className="bg-white/90 backdrop-blur-xl shadow-xl rounded-3xl p-10 w-full max-w-2xl">
+        <h1 className="text-3xl font-extrabold text-blue-700 text-center mb-6">
+          Your Profile 🎓
+        </h1>
+
+        <div className="space-y-4">
+          <input
+            name="age"
+            placeholder="Age"
+            value={profile.age || ""}
+            onChange={handleChange}
+            className="w-full px-4 py-3 rounded-xl bg-blue-50 border border-blue-200 focus:ring-2 focus:ring-orange-400 outline-none"
+          />
+
+          <input
+            name="gender"
+            placeholder="Gender"
+            value={profile.gender || ""}
+            onChange={handleChange}
+            className="w-full px-4 py-3 rounded-xl bg-blue-50 border border-blue-200 focus:ring-2 focus:ring-orange-400 outline-none"
+          />
+
+          <input
+            name="budget"
+            placeholder="Budget"
+            value={profile.budget || ""}
+            onChange={handleChange}
+            className="w-full px-4 py-3 rounded-xl bg-blue-50 border border-blue-200 focus:ring-2 focus:ring-orange-400 outline-none"
+          />
+
+          <input
+            name="preferred_location"
+            placeholder="Preferred Location"
+            value={profile.preferred_location || ""}
+            onChange={handleChange}
+            className="w-full px-4 py-3 rounded-xl bg-blue-50 border border-blue-200 focus:ring-2 focus:ring-orange-400 outline-none"
+          />
+
+          <textarea
+            name="bio"
+            placeholder="Bio"
+            value={profile.bio || ""}
+            onChange={handleChange}
+            className="w-full px-4 py-3 h-32 rounded-xl bg-blue-50 border border-blue-200 focus:ring-2 focus:ring-orange-400 outline-none"
+          />
+        </div>
+
+        <button
+          onClick={handleSave}
+          className="mt-6 w-full py-3 bg-orange-500 hover:bg-orange-600 transition text-white font-semibold rounded-xl shadow-md"
+        >
+          Save Changes
+        </button>
+
+        <p className="text-center text-sm text-gray-700 mt-3">{message}</p>
+
+        <button
+          onClick={() => {
+            localStorage.removeItem("token");
+            router.push("/login");
+          }}
+          className="mt-6 w-full py-3 bg-blue-600 hover:bg-blue-700 transition text-white font-semibold rounded-xl shadow-md"
+        >
+          Logout
+        </button>
+      </div>
     </div>
   );
 }

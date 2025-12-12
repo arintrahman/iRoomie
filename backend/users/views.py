@@ -7,6 +7,9 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from .serializers import RegisterSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.generics import RetrieveAPIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.exceptions import NotFound
 
 # Signup
 class RegisterView(generics.CreateAPIView):
@@ -39,3 +42,23 @@ class ProfileView(generics.RetrieveUpdateAPIView):
 
     def get_object(self):
         return self.request.user.profile
+    
+class ProfileReadOnlyView(generics.RetrieveAPIView):
+    serializer_class = ProfileSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user.profile
+    
+
+class PublicProfileView(RetrieveAPIView):
+    serializer_class = ProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        username = self.kwargs.get("username")
+        try:
+            user = User.objects.get(username=username)
+            return user.profile
+        except User.DoesNotExist:
+            raise NotFound("User not found")
