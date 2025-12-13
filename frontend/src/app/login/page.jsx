@@ -31,10 +31,10 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen grid place-items-center p-4 bg-white">
+    <div className="min-h-screen grid place-items-center p-4 bg-gradient-to-br from-blue-500 via-blue-600 to-orange-400">
       <div className="w-full max-w-sm bg-white/95 shadow-lg rounded-xl p-6">
         <div className="text-center space-y-1 mb-6">
-          <h1 className="text-3xl font-bold text-[oklch(0.7_0.0888_279.53)]">iRoomie</h1>
+          <h1 className="text-3xl font-bold text-blue-600">iRoomie</h1>
           <p className="text-sm text-gray-600">Log in to find your roommate</p>
         </div>
 
@@ -73,7 +73,7 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            className="w-full rounded-md bg-[oklch(0.7_0.0888_279.53)] text-white font-semibold py-2.5 hover:opacity-90 transition"
+            className="w-full rounded-md bg-blue-600 text-white font-semibold py-2.5 hover:opacity-90 transition"
           >
             Log In
           </button>
@@ -84,7 +84,7 @@ export default function LoginPage() {
           <button
             type="button"
             onClick={() => router.push('/register')}
-            className="font-semibold text-[oklch(0.7_0.0888_279.53)] hover:underline"
+            className="font-semibold text-blue-600 hover:underline"
           >
             Create an account
           </button>
