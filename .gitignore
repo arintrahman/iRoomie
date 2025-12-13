@@ -43,3 +43,7 @@ backend/__pycache__/
 backend/*.pyc
 __pycache__/
 *.pyc
+
+#python virtual environment
+venv/
+backend/venv/
