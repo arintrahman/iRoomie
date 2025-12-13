@@ -41,14 +41,18 @@ class ProfileView(generics.RetrieveUpdateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
-        return self.request.user.profile
+        profile, created = Profile.objects.get_or_create(user=self.request.user)
+        return profile
+
     
 class ProfileReadOnlyView(generics.RetrieveAPIView):
     serializer_class = ProfileSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
-        return self.request.user.profile
+        profile, created = Profile.objects.get_or_create(user=self.request.user)
+        return profile
+
     
 
 class PublicProfileView(RetrieveAPIView):
@@ -57,8 +61,11 @@ class PublicProfileView(RetrieveAPIView):
 
     def get_object(self):
         username = self.kwargs.get("username")
+
         try:
             user = User.objects.get(username=username)
-            return user.profile
         except User.DoesNotExist:
             raise NotFound("User not found")
+
+        profile, created = Profile.objects.get_or_create(user=user)
+        return profile
