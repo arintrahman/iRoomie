@@ -161,12 +161,19 @@ export default function ProfilePage() {
             />
           </div>
 
-          <button
-            onClick={handleSave}
-            className="mt-6 w-full py-3 bg-orange-500 hover:bg-orange-600 transition text-white font-semibold rounded-xl shadow-md"
-          >
-            Save Changes
-          </button>
+        <button
+          onClick={handleSave}
+          className="mt-6 w-full py-3 bg-orange-500 hover:bg-orange-600 transition text-white font-semibold rounded-xl shadow-md"
+        >
+          Save Changes
+        </button>
+
+        <button
+          onClick={() => router.push("/matching")}
+          className="mt-4 w-full py-3 bg-green-500 hover:bg-green-600 transition text-white font-semibold rounded-xl shadow-md"
+        >
+          Matching
+        </button>
 
           <p className="text-center text-sm text-gray-700 mt-3">{message}</p>
 
