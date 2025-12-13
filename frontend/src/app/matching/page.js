@@ -7,19 +7,14 @@ import NavigationButton from "../components/NavigationButton";
 export default function MatchingPage() {
   const [candidates, setCandidates] = useState([]);
   const [loading, setLoading] = useState(true);
-  const message = localStorage.getItem("username");
+  const [draggedCard, setDraggedCard] = useState(null);
+  const [dragX, setDragX] = useState(0);
+  const dragStartX = useRef(0);
   const router = useRouter();
 
   // Load candidates for matching
   useEffect(() => {
-    const storedUsername =
-      typeof window !== "undefined" ? localStorage.getItem("username") : null;
-
-    setUsername(storedUsername);
-
-    const token =
-      typeof window !== "undefined" ? localStorage.getItem("token") : null;
-
+    const token = localStorage.getItem("token");
     if (!token) {
       router.push("/login");
       return;
@@ -29,14 +24,13 @@ export default function MatchingPage() {
       const res = await fetch("http://127.0.0.1:8000/api/matching/candidates/", {
         headers: { Authorization: `Token ${token}` },
       });
-
       const data = await res.json();
       setCandidates(data);
       setLoading(false);
     }
 
     loadCandidates();
-  }, []);
+  }, [router]);
 
   async function swipe(target_username, action) {
     const token = localStorage.getItem("token");
@@ -118,34 +112,101 @@ export default function MatchingPage() {
     );
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>Matching</h1>
+    <div className="min-h-screen bg-gradient-to-br from-blue-500 via-blue-600 to-orange-400 p-8 flex flex-col items-center">
+      {/* Top nav buttons */}
+       <div className=" flex justify-end gap-4 mb-8 max-w-max ml-auto">
+              <NavigationButton text="Your Chats" link="/chat" colorClass="bg-blue-600 hover:bg-blue-700" />
+              <NavigationButton text="Potential Roomies" link="/profile/matches" colorClass="bg-orange-500 hover:bg-orange-600" />
+              <NavigationButton text="Your Profile" link="/profile" colorClass="bg-green-600 hover:bg-green-700" />
+            </div>
 
-      {candidates.length === 0 && <p>No more candidates!</p>}
+      <div className="w-full max-w-3xl relative flex-1">
+        <h1 className="text-4xl font-extrabold text-white text-center mb-10">
+          Find Your Roommate Match 🔍
+        </h1>
 
-      {candidates.map((c) => (
-        <div
-          key={c.username}
-          style={{
-            border: "1px solid #ddd",
-            padding: "1rem",
-            margin: "1rem 0",
-            borderRadius: "8px",
-          }}
-        >
-          <h2>{c.username}</h2>
-          <p>Age: {c.age}</p>
-          <p>Gender: {c.gender}</p>
-          <p>Budget: {c.budget}</p>
-          <p>Location: {c.preferred_location}</p>
-          <p>Bio: {c.bio}</p>
+        {candidates.map((c) => {
+          const isDragging = draggedCard === c.username;
+          const translateX = isDragging ? dragX : 0;
+          const rotate = isDragging ? dragX / 20 : 0;
 
-          <button
-            style={{ marginRight: "1rem", background: "#aaa" }}
-            onClick={() => swipe(c.username, "pass")}
-          >
-            Pass
-          </button>
+          // Opacity for like/pass label
+          const likeOpacity = translateX > 0 ? Math.min(translateX / 150, 1) : 0;
+          const passOpacity = translateX < 0 ? Math.min(-translateX / 150, 1) : 0;
+
+          return (
+            <div
+              key={c.username}
+              className={`absolute w-full bg-white/90 backdrop-blur-xl shadow-xl rounded-3xl p-8 border border-blue-200 cursor-grab select-none transition-transform duration-150 ease-out ${
+                isDragging ? "z-50" : "z-0"
+              }`}
+              style={{
+                transform: `translateX(${translateX}px) rotate(${rotate}deg)`,
+                touchAction: "none",
+                userSelect: "none",
+              }}
+              onMouseDown={(e) => handleDragStart(e, c.username)}
+              onTouchStart={(e) => handleDragStart(e, c.username)}
+              onMouseMove={handleDragMove}
+              onTouchMove={handleDragMove}
+              onMouseUp={handleDragEnd}
+              onMouseLeave={handleDragEnd}
+              onTouchEnd={handleDragEnd}
+            >
+              {/* Like label */}
+              <div
+                style={{ opacity: likeOpacity }}
+                className="absolute top-4 left-4 text-green-600 font-bold text-2xl select-none pointer-events-none"
+              >
+                LIKE 👍
+              </div>
+
+              {/* Pass label */}
+              <div
+                style={{ opacity: passOpacity }}
+                className="absolute top-4 right-4 text-red-600 font-bold text-2xl select-none pointer-events-none"
+              >
+                PASS 👎
+              </div>
+
+              <h2 className="text-2xl font-bold text-blue-700 mb-2">
+                <a
+                  href={`/profile/view/${c.username}`}
+                  className="underline hover:text-blue-900 cursor-pointer"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    router.push(`/profile/view/${c.username}`);
+                  }}
+                >
+                  {c.username}
+                </a>
+              </h2>
+
+              <div className="text-gray-700 space-y-1 mb-6">
+                <p>
+                  <span className="font-semibold">Age:</span> {c.age}
+                </p>
+                <p>
+                  <span className="font-semibold">Gender:</span> {c.gender}
+                </p>
+                <p>
+                  <span className="font-semibold">Budget:</span> ${c.budget}
+                </p>
+                <p>
+                  <span className="font-semibold">Location:</span> {c.preferred_location}
+                </p>
+                <p>
+                  <span className="font-semibold">Bio:</span> {c.bio}
+                </p>
+              </div>
+
+              <div className="flex gap-4 justify-center">
+                <button
+                  onClick={() => swipe(c.username, "pass")}
+                  className="px-6 py-3 bg-gray-400 text-white font-semibold rounded-xl shadow hover:bg-gray-500 transition"
+                >
+                  Pass
+                </button>
 
                 <button
                   onClick={() => swipe(c.username, "like")}
