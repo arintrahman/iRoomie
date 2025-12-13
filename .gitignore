@@ -45,6 +45,6 @@ backend/*.pyc
 __pycache__/
 *.pyc
 
-#python virtual environment
 venv/
 backend/venv/
+frontend/package-lock.json
