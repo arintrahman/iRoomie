@@ -45,7 +45,7 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             name="username"
-            placeholders="Username"
+            placeholder="Username"
             onChange={handleChange}
             required
             className="w-full px-4 py-3 rounded-lg bg-blue-50 border border-blue-200 focus:ring-2 focus:ring-orange-400 focus:outline-none"
