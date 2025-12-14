@@ -36,7 +36,20 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-500 via-blue-600 to-orange-400 flex items-center justify-center p-8">
-       
+       <div className="absolute inset-0 flex items-start pointer-events-none select-none">
+       <div className="w-full px-4 pt-3 space-y-5">
+         <p className="uppercase tracking-[0.1em] text-white/15 text-8xl font-bold">
+         I-L-L / I-N-I / I-L-L / I-N-I / I
+         -L-L / I-N-I / I-L-L / I-N-I / I-
+         L-L / I-N-I / I-L-L / I-N-I / I-L
+         -L / I-N-I / I-L-L / I-N-I / I-L-
+         L / I-N-I / I-L-L / I-N-I / I-L-L
+         / I-N-I / I-L-L / I-N-I / I-L-L /
+         I-N-I / I-L-L / I-N-I / I-L-L / I
+         -N-I / I-L-L / I-N-I / I-L-L / I-
+         </p>
+       </div>
+      </div>
       <div className="bg-white/90 backdrop-blur-xl shadow-xl rounded-2xl w-full max-w-md p-8">
         <h1 className="text-3xl font-bold text-center text-blue-700 mb-6">
           Welcome Back 👋

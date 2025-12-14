@@ -42,20 +42,43 @@ export default function ProfilePage() {
 
   const handleSave = async () => {
     try {
+      const payload  = {
+        ...profile,
+        age: profile.age === "" || profile.age == null ? null : Number(profile.age),
+        budget: profile.budget === "" || profile.budget == null ? null : Number(profile.budget),
+      };
       const res = await fetch("http://127.0.0.1:8000/api/users/profile/", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Token ${token}`,
         },
-        body: JSON.stringify(profile),
+        body: JSON.stringify(payload),
       });
+
+      const contentType = res.headers.get("content-type") || "";
+      let data = null;
+      
+      if (contentType.includes("application/json")) {
+        try {
+          data = await res.json();
+        } catch {
+          data = null;
+        }
+      } else {
+        const text = await res.text();
+        console.log("PUT response (non-JSON):", text);
+      }
+
       if (res.ok) {
         setMessage("✅ Profile updated successfully!");
+        if (data) setProfile(data);
       } else {
-        setMessage("❌ Error updating profile");
+        console.log("PUT error response data:", data);
+        setMessage('❌ Error updating profile: ${text}');
       }
-    } catch {
+    } catch (err){
+      console.error("Error during profile update:", err);
       setMessage("⚠️ Server error");
     }
   };
@@ -69,6 +92,20 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-500 via-blue-600 to-orange-400 flex items-center justify-center p-8">
+      <div className="absolute inset-0 flex items-start pointer-events-none select-none">
+       <div className="w-full px-4 pt-3 space-y-5">
+         <p className="uppercase tracking-[0.1em] text-white/15 text-8xl font-bold">
+         I-L-L / I-N-I / I-L-L / I-N-I / I
+         -L-L / I-N-I / I-L-L / I-N-I / I-
+         L-L / I-N-I / I-L-L / I-N-I / I-L
+         -L / I-N-I / I-L-L / I-N-I / I-L-
+         L / I-N-I / I-L-L / I-N-I / I-L-L
+         / I-N-I / I-L-L / I-N-I / I-L-L /
+         I-N-I / I-L-L / I-N-I / I-L-L / I
+         -N-I / I-L-L / I-N-I / I-L-L / I-
+         </p>
+       </div>
+      </div>
       <div className="w-full">
       <div className=" flex justify-end gap-4 mb-8 max-w-max ml-auto">
                 <NavigationButton text="Find Matches" link="/matching" colorClass="bg-blue-600 hover:bg-blue-700" />
