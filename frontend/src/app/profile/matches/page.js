@@ -60,7 +60,7 @@ export default function MatchesPage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-500 via-blue-600 to-orange-400 p-8 flex flex-col items-center">
        {/* Navigation Buttons */}
        <div className=" flex justify-end gap-4 mb-8 max-w-max ml-auto">
-        <NavigationButton text="Your Chats" link="/chat" colorClass="bg-blue-300 hover:bg-blue-700" />
+        <NavigationButton text="Your Chats" link="/chat" colorClass="bg-blue-600 hover:bg-blue-700" />
         <NavigationButton text="Find Your Matches" link="/matching" colorClass="bg-orange-400 hover:bg-orange-600" />
         <NavigationButton text="Your Profile" link="/profile" colorClass="bg-green-600 hover:bg-green-700" />
       </div>

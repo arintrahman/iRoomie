@@ -106,8 +106,20 @@ export default function MatchingPage() {
 
   if (candidates.length === 0)
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 via-blue-600 to-orange-400 text-white text-xl">
-        No more candidates!
+      <div className="min-h-screen bg-gradient-to-br from-blue-500 via-blue-600 to-orange-400 p-8 flex justify-center">
+        <div className="w-full">
+              <div className=" flex justify-end gap-4 mb-8 max-w-max ml-auto">
+                        <NavigationButton text="Your Chats" link="/chat" colorClass="bg-blue-600 hover:bg-blue-700" />
+                        <NavigationButton text="Potential Roomies" link="/profile/matches" colorClass="bg-orange-500 hover:bg-orange-600" />
+                        <NavigationButton text="Your Profile" link="/profile" colorClass="bg-green-600 hover:bg-green-700" />
+              </div>
+        
+        <div className="flex justify-center">
+          <h1 className="text-3xl font-extrabold text-white text-center mb-6">
+            No More Candidates!
+          </h1>
+        </div>
+        </div>
       </div>
     );
 
