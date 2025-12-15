@@ -58,6 +58,20 @@ export default function MatchesPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-500 via-blue-600 to-orange-400 p-8 flex flex-col items-center">
+      <div className="absolute inset-0 flex items-start pointer-events-none select-none">
+       <div className="w-full px-4 pt-3 space-y-5">
+         <p className="uppercase tracking-[0.1em] text-white/15 text-8xl font-bold">
+         I-L-L / I-N-I / I-L-L / I-N-I / I
+         -L-L / I-N-I / I-L-L / I-N-I / I-
+         L-L / I-N-I / I-L-L / I-N-I / I-L
+         -L / I-N-I / I-L-L / I-N-I / I-L-
+         L / I-N-I / I-L-L / I-N-I / I-L-L
+         / I-N-I / I-L-L / I-N-I / I-L-L /
+         I-N-I / I-L-L / I-N-I / I-L-L / I
+         -N-I / I-L-L / I-N-I / I-L-L / I-
+         </p>
+       </div>
+      </div>
        {/* Navigation Buttons */}
        <div className=" flex justify-end gap-4 mb-8 max-w-max ml-auto">
         <NavigationButton text="Your Chats" link="/chat" colorClass="bg-blue-600 hover:bg-blue-700" />
