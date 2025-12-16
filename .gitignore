@@ -48,3 +48,9 @@ __pycache__/
 venv/
 backend/venv/
 frontend/package-lock.json
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.env
