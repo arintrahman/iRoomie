@@ -10,11 +10,21 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id', 'username']
 
 class PublicProfileSerializer(serializers.ModelSerializer):
-    username = serializers.CharField(source="user.username")
+    username = serializers.CharField(source="user.username", read_only=True)
+    email = serializers.EmailField(source="user.email", read_only=True)
 
     class Meta:
         model = Profile
-        fields = ["username", "age", "gender", "budget", "preferred_location", "bio"]
+        fields = [
+            "username",
+            "email",
+            "age",
+            "gender",
+            "budget",
+            "preferred_location",
+            "bio",
+        ]
+
 
 class StartChatSerializer(serializers.Serializer):
     target_username = serializers.CharField()

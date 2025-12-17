@@ -51,6 +51,16 @@ export default function MatchingPage() {
     }
   }
 
+  function emailRoommate(email, username) {
+    const subject = encodeURIComponent("Roommate Inquiry");
+    const body = encodeURIComponent(
+      `Hi ${username},\n\nI found your profile through the roommate matching app and wanted to reach out.\n\nBest,\n`
+    );
+  
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+  }
+  
+
   async function startChat(target_username) {
     const token = localStorage.getItem("token");
 
@@ -256,11 +266,12 @@ export default function MatchingPage() {
                 </button>
 
                 <button
-                  onClick={() => startChat(c.username)}
+                  onClick={() => emailRoommate(c.email, c.username)}
                   className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl shadow hover:bg-blue-700 transition"
                 >
-                  Start Chat
+                  Email Roommate
                 </button>
+
               </div>
             </div>
           );
