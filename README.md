@@ -25,7 +25,8 @@ Relies on authentication state provided by the backend
 
 # Django backend
 
-Each endpoint corresponds to a specific feature (e.g., fetching profiles, creating matches, updating user data). The backend validates requests, performs necessary logic, interacts with the database, and returns structured responses.
+Each endpoint corresponds to a specific feature (e.g., fetching profiles, creating matches, updating user data). 
+The backend validates requests, performs necessary logic, interacts with the database, and returns structured responses.
 
 Interactions 
 Receives HTTP requests from the React frontend
