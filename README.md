@@ -12,7 +12,7 @@ For more details, view the full project proposal [here](https://docs.google.com/
 # Technical Architecture
 
 # Developers
-- **Jihwi Min**: 
+- **Jihwi Min**:
 - **Veda Fernandes**: 
 - **Arin Rahman**: Worked on design, frontend, and styling
 - **Gus Nophaket**: Worked on design, frontend, and styling
