@@ -10,6 +10,7 @@ iRoomie is a roommate matching app aimed towards UIUC students. It allows users 
 For more details, view the full project proposal [here](https://docs.google.com/document/d/15c7sLHsO_B3nfjQLCp6QkTyK0kEl_TNWyFCs8jph8wI/edit?usp=sharing)
 
 # Technical Architecture
+<img width="913" height="510" alt="Screen Shot 2568-12-17 at 21 34 07" src="https://github.com/user-attachments/assets/9f75dbb7-a6d1-4e38-b4c5-828c7f9d0892" />
 
 # Developers
 - **Jihwi Min**: Worked on backend, frontend
