@@ -31,6 +31,7 @@ Activating the venv. Run one of the following:
 venv/Scripts/activate/ # macOS / Linux
 source venv/bin/activate # Windows
 ```
+Download requirements.txt
 
 Run Migrations
 ```
