@@ -44,7 +44,7 @@ export default function ChatListPage() {
           <NavigationButton text="Potential Roomies" link="/profile/matches" colorClass="bg-orange-500 hover:bg-orange-600" />
           <NavigationButton text="Your Profile" link="/profile" colorClass="bg-green-600 hover:bg-green-700" />
       </div>
-        <h1 className="text-4xl font-extrabold text-white mb-8 text-center">Your Chats</h1>
+        {/* <h1 className="text-4xl font-extrabold text-white mb-8 text-center">Your Chats</h1> */}
         
         {chats.length === 0 ? (
           <p className="text-center text-white text-lg">No chats found.</p>

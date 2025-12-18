@@ -112,7 +112,7 @@ export default function ProfilePage() {
       <div className=" flex justify-end gap-4 mb-8 max-w-max ml-auto">
                 <NavigationButton text="Find Matches" link="/matching" colorClass="bg-blue-600 hover:bg-blue-700" />
                 <NavigationButton text="Potential Roomies" link="/profile/matches" colorClass="bg-orange-500 hover:bg-orange-600" />
-                <NavigationButton text="Your Chats" link="/chat" colorClass="bg-green-600 hover:bg-green-700" />
+                {/* <NavigationButton text="Your Chats" link="/chat" colorClass="bg-green-600 hover:bg-green-700" /> */}
       </div>
       
       <div className="flex justify-center"> 

@@ -54,12 +54,12 @@ export default function ProfileViewPage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-500 via-blue-600 to-orange-400 flex flex-col items-center p-8">
       {/* Navigation Buttons */}
       <div className="w-full max-w-3xl flex justify-end gap-4 mb-8">
-        <button
+        {/* <button
           onClick={() => router.push("/chat")}
           className="px-4 py-2 bg-blue-600 text-white rounded-xl font-semibold shadow hover:bg-blue-700 transition"
         >
           Your Chats
-        </button>
+        </button> */}
         <button
           onClick={() => router.push("/matching")}
           className="px-4 py-2 bg-orange-500 text-white rounded-xl font-semibold shadow hover:bg-orange-600 transition"

@@ -77,9 +77,9 @@ export default function ChatRoom({ params }) {
     <div className="min-h-screen flex bg-gradient-to-br from-blue-500 via-blue-600 to-orange-400">
       {/* Sidebar */}
       <aside className="w-64 bg-white/90 backdrop-blur-md border-r border-blue-300 shadow-lg flex flex-col">
-        <h2 className="text-2xl font-bold text-blue-700 p-4 border-b border-blue-300">
+        {/* <h2 className="text-2xl font-bold text-blue-700 p-4 border-b border-blue-300">
           Your Chats
-        </h2>
+        </h2> */}
 
         <div className="flex-grow overflow-y-auto">
           {chats.length === 0 ? (

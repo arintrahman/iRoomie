@@ -43,6 +43,10 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    # expose related User fields as read-only
+    email = serializers.EmailField(source='user.email', read_only=True)
+    username = serializers.CharField(source='user.username', read_only=True)
+
     class Meta:
         model = Profile
-        fields = ['age', 'gender', 'budget', 'preferred_location', 'bio']
+        fields = ['username', 'email', 'age', 'gender', 'budget', 'preferred_location', 'bio']

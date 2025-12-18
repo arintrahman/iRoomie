@@ -133,7 +133,7 @@ export default function MatchingPage() {
       </div>
         <div className="w-full">
               <div className=" flex justify-end gap-4 mb-8 max-w-max ml-auto">
-                        <NavigationButton text="Your Chats" link="/chat" colorClass="bg-blue-600 hover:bg-blue-700" />
+                        {/* <NavigationButton text="Your Chats" link="/chat" colorClass="bg-blue-600 hover:bg-blue-700" /> */}
                         <NavigationButton text="Potential Roomies" link="/profile/matches" colorClass="bg-orange-500 hover:bg-orange-600" />
                         <NavigationButton text="Your Profile" link="/profile" colorClass="bg-green-600 hover:bg-green-700" />
               </div>
@@ -165,7 +165,7 @@ export default function MatchingPage() {
        </div>
       </div>
        <div className=" flex justify-end gap-4 mb-8 max-w-max ml-auto">
-              <NavigationButton text="Your Chats" link="/chat" colorClass="bg-blue-600 hover:bg-blue-700" />
+              {/* <NavigationButton text="Your Chats" link="/chat" colorClass="bg-blue-600 hover:bg-blue-700" /> */}
               <NavigationButton text="Potential Roomies" link="/profile/matches" colorClass="bg-orange-500 hover:bg-orange-600" />
               <NavigationButton text="Your Profile" link="/profile" colorClass="bg-green-600 hover:bg-green-700" />
             </div>

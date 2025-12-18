@@ -11,6 +11,17 @@ from rest_framework.generics import RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import NotFound
 
+# Endpoint to get email from username
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_email_by_username(request, username):
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        raise NotFound("User not found")
+
+    return Response({'username': user.username, 'email': user.email}, status=status.HTTP_200_OK)
+
 # Signup
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
