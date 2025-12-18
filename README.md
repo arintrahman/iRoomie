@@ -14,7 +14,7 @@ For more details, view the full project proposal [here](https://docs.google.com/
 # Developers
 - **Jihwi Min**: 
 - **Veda Fernandes**: 
-- **Arin Rahman**:
+- **Arin Rahman**: Worked on design, frontend, and styling
 - **Gus Nophaket**: Worked on design, frontend, and styling
 
 # Backend Setup
