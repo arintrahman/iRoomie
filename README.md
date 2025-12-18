@@ -2,7 +2,9 @@
 
 ## What is iRoomie
 
-iRoomie is a roommate matching app aimed towards UIUC students. It allows users to:
+iRoomie is a roommate matching app aimed towards UIUC students. Inspired by gamified dating apps like Tindr, we wanted to make an interactive and engaging app that makes it easy for students to find and contact potential roommates.
+
+iRoomie allows users to:
 1. Create a profile with their email
 2. Match with users with similar preferences
 3. Get into contact with said person
