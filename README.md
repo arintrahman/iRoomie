@@ -12,6 +12,24 @@ For more details, view the full project proposal [here](https://docs.google.com/
 # Technical Architecture
 <img width="913" height="510" alt="Screen Shot 2568-12-17 at 21 34 07" src="https://github.com/user-attachments/assets/9f75dbb7-a6d1-4e38-b4c5-828c7f9d0892" />
 
+# React Frontend
+
+When a user performs an action (changing profile or submitting a match request), the frontend sends HTTP requests in JSON format to the backend API. Once a response is received, the frontend updates the UI accordingly.
+
+Interactions 
+Sends requests to the Django REST API
+Receives JSON responses and renders them
+Relies on authentication state provided by the backend
+
+# Django backend
+
+Each endpoint corresponds to a specific feature (e.g., fetching profiles, creating matches, updating user data). The backend validates requests, performs necessary logic, interacts with the database, and returns structured responses.
+
+Interactions 
+Receives HTTP requests from the React frontend
+Communicates with the authentication module to verify users
+Reads from and writes to the database using Django’s ORM
+
 # Developers
 - **Jihwi Min**: Worked on backend, frontend
 - **Veda Fernandes**: Worked on backend, frontend
