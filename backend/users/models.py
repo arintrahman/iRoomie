@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -11,3 +12,12 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name}'s profile"
+
+class ProfilePhoto(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="photos")
+    image = models.ImageField(upload_to="profile_photos/")
+    order = models.PositiveSmallIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["order", "created_at"]

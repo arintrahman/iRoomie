@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import NavigationButton from "../components/NavigationButton";
+import ProfilePhotoUploader from "../components/ProfilePhotoUploader";
 
 export const dynamic = "force-dynamic";
 
@@ -104,6 +105,10 @@ export default function ProfilePage() {
          I-N-I / I-L-L / I-N-I / I-L-L / I
          -N-I / I-L-L / I-N-I / I-L-L / I-
          L-L / I-N-I / I-L-L / I-N-I / I-L
+         -L / I-N-I / I-L-L / I-N-I / I-L-
+         L / I-N-I / I-L-L / I-N-I / I-L-L
+         / I-N-I / I-L-L / I-N-I / I-L-L /
+        
 
          </p>
        </div>
@@ -162,7 +167,7 @@ export default function ProfilePage() {
               className="w-full px-4 py-3 h-32 rounded-xl bg-blue-50 border border-blue-200 focus:ring-2 focus:ring-orange-400 outline-none"
             />
           </div>
-
+          <ProfilePhotoUploader />
         <button
           onClick={handleSave}
           className="mt-6 w-full py-3 bg-orange-500 hover:bg-orange-600 transition text-white font-semibold rounded-xl shadow-md"

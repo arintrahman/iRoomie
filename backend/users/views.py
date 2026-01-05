@@ -10,6 +10,19 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import NotFound
+from rest_framework import status, permissions
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .models import Profile, ProfilePhoto
+from .serializers import ProfilePhotoSerializer, MAX_PROFILE_PHOTOS
+from rest_framework import generics
+
+from .models import ProfilePhoto
+
+from .models import Profile
+
+MAX_PROFILE_PHOTOS = 10
 
 # Endpoint to get email from username
 @api_view(['GET'])
@@ -80,3 +93,50 @@ class PublicProfileView(RetrieveAPIView):
 
         profile, created = Profile.objects.get_or_create(user=user)
         return profile
+
+class ProfilePhotoUploadView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
+
+    def post(self, request):
+        profile, _ = Profile.objects.get_or_create(user=request.user)
+        
+        files = request.FILES.getlist("images")
+        if not files:
+            return Response({"detail": "No files provided."}, status=400)
+        
+        existing = profile.photos.count()
+        remaining = MAX_PROFILE_PHOTOS - existing
+        if remaining <= 0:
+            return Response({"detail": f"Maximum of {MAX_PROFILE_PHOTOS} photos allowed."}, status=400)
+        
+        files = files[:remaining]
+
+        start_order = existing
+        created = []
+
+        for i, f in enumerate(files):
+            created.append(ProfilePhoto.objects.create(
+                profile=profile,
+                image=f,
+                order= start_order + i
+            ))
+            
+        return Response(
+            [{"id": p.id, "image": p.image.url, "order": p.order} for p in created],
+            status=status.HTTP_201_CREATED
+        )    
+class ProfilePhotoDeleteView(generics.DestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        profile, _ = Profile.objects.get_or_create(user=self.request.user)
+        return ProfilePhoto.objects.filter(profile=profile)    
+
+class ProfilePhotoListView(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = ProfilePhotoSerializer
+
+    def get_queryset(self):
+        profile, _ = Profile.objects.get_or_create(user=self.request.user)
+        return ProfilePhoto.objects.filter(profile=profile).order_by("order", "id")

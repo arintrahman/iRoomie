@@ -1,8 +1,11 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from .models import ProfilePhoto
 from django.contrib.auth.password_validation import validate_password
 import re
 from .models import Profile
+
+MAX_PROFILE_PHOTOS = 10
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
@@ -50,3 +53,17 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['username', 'email', 'age', 'gender', 'budget', 'preferred_location', 'bio']
+
+class ProfilePhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfilePhoto
+        fields = ["id", "image", "order", "created_at"]
+
+    def validate(self, attrs):
+        request = self.context["request"]
+        profile = request.user.profile
+
+        existing = profile.photos.count()
+
+        if self.instance is None and existing >= MAX_PROFILE_PHOTOS:
+            raise serializers.ValidationError(f"Maximum {MAX_PROFILE_PHOTOS} photos allowed.")
