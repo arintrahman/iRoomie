@@ -19,9 +19,9 @@ For more details, view the full project proposal [here](https://docs.google.com/
 When a user performs an action (changing profile or submitting a match request), the frontend sends HTTP requests in JSON format to the backend API. Once a response is received, the frontend updates the UI accordingly.
 
 Interactions 
-Sends requests to the Django REST API
-Receives JSON responses and renders them
-Relies on authentication state provided by the backend
+- Sends requests to the Django REST API
+- Receives JSON responses and renders them
+- Relies on authentication state provided by the backend
 
 # Django backend
 
@@ -29,15 +29,15 @@ Each endpoint corresponds to a specific feature (e.g., fetching profiles, creati
 The backend validates requests, performs necessary logic, interacts with the database, and returns structured responses.
 
 Interactions 
-Receives HTTP requests from the React frontend
-Communicates with the authentication module to verify users
-Reads from and writes to the database using Django’s ORM
+- Receives HTTP requests from the React frontend
+- Communicates with the authentication module to verify users
+- Reads from and writes to the database using Django’s ORM
 
 # Developers
-- **Jihwi Min**: Worked on backend, frontend
-- **Veda Fernandes**: Worked on backend, frontend
-- **Arin Rahman**: Worked on design, frontend, and styling
-- **Gus Nophaket**: Worked on design, frontend, and styling
+- **[Jihwi Min](https://github.com/jihwimin)**: Worked on backend, frontend
+- **[Veda Fernandes](https://github.com/vedafernandes)**: Worked on backend, frontend
+- **[Arin Rahman](https://github.com/arintrahman)**: Worked on design, frontend, and styling
+- **[Gus Nophaket](https://github.com/gussgusss)**: Worked on design, frontend, and styling
 
 # Backend Setup
 
